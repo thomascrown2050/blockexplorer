@@ -28,9 +28,6 @@ function App() {
   useEffect(() => {
     async function getBlockNumber() {
       setBlockNumber(await alchemy.core.getBlockNumber());
-      //console.log(testcount+1);
-      //const blockNumber2 = await alchemy.core.getBlockNumber();
-      //console.log(blockNumber2);
     }
 
     getBlockNumber();
