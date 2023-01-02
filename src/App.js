@@ -1,5 +1,5 @@
 import { Alchemy, Network } from 'alchemy-sdk';
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 
 import './App.css';
 
@@ -21,21 +21,61 @@ const alchemy = new Alchemy(settings);
 
 function App() {
   const [blockNumber, setBlockNumber] = useState();
-
-  let testcount = 0;
-  console.log(testcount);
+  let blockdata = {};
+  let stringblockdata = "";
 
   useEffect(() => {
     async function getBlockNumber() {
-      setBlockNumber(await alchemy.core.getBlockNumber());
+    setBlockNumber(await alchemy.core.getBlockNumber());
+    console.log(blockNumber);
     }
-
     getBlockNumber();
-
-    console.log(testcount+2);
   });
 
-  return <div className="App">Block Number: {blockNumber}</div>;
+  async function getBlockData() { 
+    blockdata = await alchemy.core.getBlock(blockNumber);
+    console.log(blockdata);
+    stringblockdata = JSON.stringify(blockdata);
+    }
+    getBlockData();
+
+
+  /*
+  useEffect(() => {
+    async function getBlockNumber() {
+    setBlockNumber(await alchemy.core.getBlockNumber());
+    console.log(blockNumber);
+    }
+    getBlockNumber();
+
+    //getBlockdata
+    async function getBlockData() { 
+      setBlockData(await alchemy.core.getBlock(blockNumber));
+      console.log(recentBlockData);
+      }
+      getBlockData();
+
+  }, [blockNumber, recentBlockl]);
+  */
+
+  /*
+   useEffect(() => {
+    async function getBlockData() { 
+    setBlockData(await alchemy.core.getBlock(blockNumber));
+    console.log(recentBlockData);
+    }
+    getBlockData();
+  });
+*/
+
+  return <div className="App">
+  Most recent block number: {blockNumber}
+  
+  <div>
+  Blockdata: {stringblockdata}
+  </div>
+  
+  </div>;
 }
 
 export default App;
